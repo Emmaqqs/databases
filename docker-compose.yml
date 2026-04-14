@@ -35,6 +35,26 @@ services:
       test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
       timeout: 20s
       retries: 10
+
+  oracle:
+    image: gvenzl/oracle-xe:21-slim
+    container_name: oracle_server
+    environment:
+      ORACLE_PASSWORD: OraclePassword123!
+      APP_USER: appuser
+      APP_USER_PASSWORD: apppassword
+    ports:
+      - "1521:1521"
+    volumes:
+      - oracle_data:/opt/oracle/oradata
+    networks:
+      - databases
+    healthcheck:
+      test: ["CMD-SHELL", "echo 'select 1 from dual;' | sqlplus -s system/$$ORACLE_PASSWORD@localhost/XEPDB1 | grep -q 1"]
+      interval: 10s
+      timeout: 10s
+      retries: 20
+
   sqlserver:
     image: mcr.microsoft.com/mssql/server:2022-latest
     container_name: sql_server
@@ -56,6 +76,7 @@ services:
 volumes:
   mysql_data:
   mongo_data:
+  oracle_data:
   sqlserver_data:
 
 networks:
