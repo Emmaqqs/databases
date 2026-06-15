@@ -73,11 +73,24 @@ services:
       timeout: 5s
       retries: 10
 
+  sqlite:
+    image: coleifer/sqlite-web
+    container_name: sqlite_server
+    ports:
+      - "8080:8080"
+    volumes:
+      - sqlite_data:/data
+    environment:
+      - SQLITE_DATABASE=mydb.db
+    networks:
+      - databases
+
 volumes:
   mysql_data:
   mongo_data:
   oracle_data:
   sqlserver_data:
+  sqlite_data:
 
 networks:
   databases:

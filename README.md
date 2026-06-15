@@ -1,10 +1,11 @@
-# Contenedores Docker - MySQL, MongoDB, Oracle y SQL Server
+# Contenedores Docker - MySQL, MongoDB, Oracle, SQL Server y SQLite
 
-Este proyecto contiene la configuración de cuatro contenedores Docker:
+Este proyecto contiene la configuración de cinco contenedores Docker:
 - **MySQL 8.0**
 - **MongoDB (última versión)**
 - **Oracle XE 21c**
 - **SQL Server 2022**
+- **SQLite (con SQLite Web)**
 
 ## Requisitos
 
@@ -65,6 +66,14 @@ Conexión de ejemplo:
 docker exec -it oracle_server sqlplus system/OraclePassword123!@localhost/XEPDB1
 ```
 
+**SQLite:**
+- Host: `localhost`
+- Puerto: `8080` (Interfaz Web)
+- Base de datos: `mydb.db` (autocreada en el volumen)
+
+Acceso:
+Abre `http://localhost:8080` en tu navegador.
+
 ### 4. Ver logs de los contenedores
 
 ```bash
@@ -96,6 +105,7 @@ Los datos se guardan en volúmenes persistentes:
 - `mongo_data`: Datos de MongoDB
 - `oracle_data`: Datos de Oracle XE
 - `sqlserver_data`: Datos de SQL Server
+- `sqlite_data`: Datos de SQLite (archivo .db)
 
 Esto asegura que los datos persistan incluso si detienes los contenedores.
 
